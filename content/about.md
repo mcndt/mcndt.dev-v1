@@ -1,0 +1,19 @@
+---
+url: "/about/"
+hidemeta: true
+---
+
+# About me
+
+Hello there! I'm a computer science engineer with interest in a wide range of  topics, including productivity, PKM, artificial intelligence, product development and game design.
+
+I graduate from [Ghent University](http://www.ugent.be) in 2022 with a M.Sc. in Computer Science Engineering and Artificial Intelligence. For my Master dissertation, I research the application of [Physical Reservoir Computing](https://doi.org/10.35848/1347-4065/ab8d4f) on physiological processes in plants.
+
+## Contact
+
+If you want to interact with me, you can reach me in the following ways:
+
+- Email: <maxime.cannoodt@ugent.be>
+- LinkedIn: [Maxime Cannoodt](https://www.linkedin.com/in/maxime-cannoodt-7b2697192/?locale=en_US)
+- GitHub: [mcndt](https://github.com/mcndt)
+- Discord: `Maximio#6460`

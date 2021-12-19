@@ -1,0 +1,29 @@
+{{- with $.Site.Params.homeInfoParams }}
+<article class="first-entry home-info">
+
+    <div class='home-info-main'>
+      
+      <div class='home-info-text'>
+        <header class="entry-header">
+            <h1>{{ .Title | markdownify }}</h1>
+        </header>
+        
+        <section class="entry-content">
+          <p>{{ .Content | markdownify }}</p>
+          <p><br>Find out more about me <a style="box-shadow: 0 1px" href="/about">here</a>.</p>
+        </section>
+      </div>
+        
+      <div class='home-info-photo'>
+        <img src="{{ .imageUrl }}" alt="{{ .imageTitle | default "profile image" }}"
+                height="150" width="150" />
+      </div>
+
+    </div>
+
+
+    <footer class="entry-footer">
+        {{ partial "social_icons.html" $.Site.Params.socialIcons }}
+    </footer>
+</article>
+{{- end -}}
