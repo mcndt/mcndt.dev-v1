@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://mcndt.github.io/sitemap.xml
