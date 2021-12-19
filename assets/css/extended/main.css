@@ -37,9 +37,10 @@ h6 {
 
 .home-info-photo {
     height: 100%;
-    width: 150px;
+    width: 168px;
     display: inline-table;
     align-self: center;
+    /* margin-top: 16px; */
 }
 
 .home-info-photo img {
@@ -48,6 +49,10 @@ h6 {
     /* align-self: center; */
     border-radius: 50%;
     pointer-events: none;
+}
+
+.paginav {
+    background-color: var(--paginav);
 }
 
 .paginav .prev {
@@ -81,6 +86,7 @@ h6 {
 
 .archive-entry {
     display: flex;
+    /* align-items: center; */
     align-items: top;
     margin: .5em 0;
     /* justify-content: space-between; */
@@ -93,5 +99,20 @@ h6 {
 
 .archive-entry-title { 
     max-width: 80%;
+    margin: 0px 0;
+}
+
+.archive-year:not(:last-of-type) {
+    border-bottom: 1px solid var(--tertiary)
+}
+
+.about-author p {
+    margin: 1em 0 2em;
+    font-size: 16px;
+    color: var(--secondary);
+}
+
+.about-author p br {
+    display: block;
     margin: 0px 0;
 }

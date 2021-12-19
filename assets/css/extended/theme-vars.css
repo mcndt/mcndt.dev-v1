@@ -1,23 +1,34 @@
 :root {
+
+    --eggshell: #f4f1de;
+    --floral-white: #faf9f0; 
+    --midnight-blue: #050861;
+    --oxford-blue: #020327;
+    --cambridge-blue: #b7cfb4;
+    
+    --off-white: #FFFFF8;
+    --off-white-shade: #e8e7df;
+
     --gap: 24px;
     --content-gap: 20px;
     --nav-width: 1024px;
-    --main-width: 720px;
+    --main-width: 820px;
     --header-height: 60px;
     --footer-height: 60px;
     --radius: 8px;
-    --theme: rgb(255, 255, 255);
+    --theme: var(--off-white);
     --entry: rgb(255, 255, 255);
     --primary: #000000;
     --secondary: rgb(108, 108, 108);
     --tertiary: rgb(214, 214, 214);
     --content: rgb(31, 31, 31);
     --hljs-bg: rgb(28, 29, 33);
-    --code-bg: rgb(245, 245, 245);
+    --code-bg: var(--off-white-shade);
     --border: rgb(238, 238, 238);
     --mcndt: #AF1700;
-    --bold: #FF66B5;
+    --bold: #f15b7c;
     --italic: #4A94FF;
+    --paginav: var(--off-white-shade);
 }
 
 .dark {
@@ -32,13 +43,14 @@
     --code-bg: rgb(55, 56, 62);
     --border: rgb(51, 51, 51);
     --mcndt: #c23822;
-    --bold: #FFADF1;
+    --bold: #e47aa6;
     --italic: #84B6FF;
+    --paginav: var(--tertiary);
 
 }
 
 .list {
-    background: var(--code-bg);
+    background: var(--theme);
 }
 
 .dark.list {

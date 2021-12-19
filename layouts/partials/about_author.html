@@ -1,0 +1,8 @@
+{{- with $.Site.Params.homeInfoParams }}
+<div class='about-author'>
+  <h4>About me</h4>
+    <p>
+      {{ .Content | markdownify }}
+    </p>
+</div>
+{{- end -}}

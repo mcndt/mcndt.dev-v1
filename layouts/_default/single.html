@@ -43,6 +43,9 @@
       {{- end }}
     </ul>
     {{- end }}
+
+    {{- partial "about_author.html" . }}
+
     {{- if (.Param "ShowPostNavLinks") }}
     {{- partial "post_nav_links.html" . }}
     {{- end }}
