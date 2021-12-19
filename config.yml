@@ -1,6 +1,6 @@
 
 # --- BASE HUGO CONFIGURATION ---
-baseURL: http://example.org/
+baseURL: https://mcndt.github.io
 languageCode: en-us
 title: Maxime Cannoodt
 theme: PaperMod
