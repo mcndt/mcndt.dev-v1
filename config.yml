@@ -54,7 +54,7 @@ params:
     # iconHeight: 35
 
   defaultTheme: auto
-  ShowReadingTime: true
+  ShowReadingTime: false
   ShowBreadCrumbs: false
   ShowShareButtons: false
   ShowPostNavLinks: true

@@ -1,16 +1,8 @@
 ---
-title: "The first post's title is problematic and here is why, part 2"
+title: "Sample post"
 draft: false
-description: The first post was a mistake.
+description: This is a sample post until the real first post is made.
 date: '2021-11-30'
 ---
 
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation *ullamco* laboris nisi ut **aliquip ex ea commodo** consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-
-> *Quote*.[^1]
-
-```py
-do_func()
-```
-
-[^1]: test
