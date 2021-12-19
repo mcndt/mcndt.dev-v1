@@ -1,6 +1,7 @@
 ---
 url: "/about/"
 hidemeta: true
+hideAboutAuthor: true
 ---
 
 # About me

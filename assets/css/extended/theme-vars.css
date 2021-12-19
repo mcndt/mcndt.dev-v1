@@ -26,7 +26,7 @@
     --code-bg: var(--off-white-shade);
     --border: rgb(238, 238, 238);
     --mcndt: #AF1700;
-    --bold: #f15b7c;
+    --bold: #16b19c;
     --italic: #4A94FF;
     --paginav: var(--off-white-shade);
 }
@@ -43,7 +43,7 @@
     --code-bg: rgb(55, 56, 62);
     --border: rgb(51, 51, 51);
     --mcndt: #c23822;
-    --bold: #e47aa6;
+    --bold: #17a18f;
     --italic: #84B6FF;
     --paginav: var(--tertiary);
 

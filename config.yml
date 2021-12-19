@@ -58,6 +58,7 @@ params:
   ShowBreadCrumbs: false
   ShowShareButtons: false
   ShowPostNavLinks: true
+  disableAnchoredHeadings: true
 
   socialIcons: # optional
     - name: "GitHub"
