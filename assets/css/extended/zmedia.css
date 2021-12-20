@@ -4,6 +4,10 @@
         --gap: 14px;
     }
 
+    .main {
+        margin: 0 1em 0 1em;
+    }
+
     /* profile-mode */
     .profile img {
         transform: scale(0.85);
@@ -30,7 +34,6 @@
     .home-info-text {
         flex-basis: 100% !important;
     }
-    
 
     /* footer */
     .footer {

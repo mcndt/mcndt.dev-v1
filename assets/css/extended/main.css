@@ -14,11 +14,12 @@ h6 {
     font-family: 'Roboto Slab', serif;
 }
 
-.post-content p strong {
-    color: var(--bold);
+.post-content {
+    line-height: 1.8;
+    text-align: left;
 }
 
-.post-content p em {
+.post-content em {
     color: var(--italic);
 }
 
@@ -32,7 +33,6 @@ h6 {
 
 .home-info-text {
     flex-basis: 75%;
-    /* width: 75%; */
 }
 
 .home-info-photo {

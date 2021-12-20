@@ -21,7 +21,7 @@ author:
   links:
     - github: 'https://github.com/mcndt'
     - linkedin: 'https://www.linkedin.com/in/maxime-cannoodt-7b2697192/?locale=en_US'
-    - twitter: 'https://twitter.com/maximio_'
+    # - twitter: 'https://twitter.com/maximio_'
 
 
 # --- NAVIGATION MENUS ---
@@ -63,8 +63,8 @@ params:
   socialIcons: # optional
     - name: "GitHub"
       url: "https://github.com/mcndt"
-    - name: "Twitter"
-      url: "https://twitter.com/maximio_"
+    # - name: "Twitter"
+    #   url: "https://twitter.com/maximio_"
     - name: "LinkedIn"
       url: "https://www.linkedin.com/in/maxime-cannoodt-7b2697192/?locale=en_US"
 
