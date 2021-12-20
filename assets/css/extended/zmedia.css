@@ -5,7 +5,19 @@
     }
 
     .main {
-        margin: 0 1em 0 1em;
+        margin: 0 .5em 0 .5em;
+    }
+    
+    .post-single {
+        line-height: 1.6;
+    }
+
+    .post-single h1 {
+        font-size: 2rem;
+    }
+
+    .post-single h2 {
+        font-size: 1.66rem;
     }
 
     /* profile-mode */
