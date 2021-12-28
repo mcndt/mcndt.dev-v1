@@ -36,6 +36,9 @@
   {{- end }}
 
   <footer class="post-footer">
+    {{- if not (.Param "hideAboutAuthor") }}
+    {{- partial "about_author.html" . }}
+    {{- end }}
     {{- if .Params.tags }}
     <ul class="post-tags">
       {{- range ($.GetTerms "tags") }}
@@ -44,9 +47,6 @@
     </ul>
     {{- end }}
 
-    {{- if not (.Param "hideAboutAuthor") }}
-    {{- partial "about_author.html" . }}
-    {{- end }}
     
     {{- if (.Param "ShowPostNavLinks") }}
     {{- partial "post_nav_links.html" . }}
