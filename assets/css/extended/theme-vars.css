@@ -23,12 +23,12 @@
     --tertiary: rgb(214, 214, 214);
     --content: rgb(31, 31, 31);
     --hljs-bg: rgb(28, 29, 33);
-    --code-bg: var(--off-white-shade);
+    --code-bg: #eee;
     --border: rgb(238, 238, 238);
     --mcndt: #AF1700;
     --bold: #16b19c;
     --italic: #4A94FF;
-    --paginav: var(--off-white-shade);
+    --paginav: #eee;
 }
 
 .dark {
