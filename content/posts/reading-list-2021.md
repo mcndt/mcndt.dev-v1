@@ -78,3 +78,4 @@ This is an interesting pop-sci book on how many species of plants have evolved i
 For this year, I have joined the Goodreads reading challenge. My SO said he would read 16 books this year, so I said I would match him. Hopefully this motivates me to bring you a longer list next year!
 
 Feel free to follow what I'm reading on my [Goodreads page](https://www.goodreads.com/user/show/139002928-maxime).
+

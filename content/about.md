@@ -2,6 +2,7 @@
 url: "/about/"
 hidemeta: true
 hideAboutAuthor: true
+comments: false
 ---
 
 # About me

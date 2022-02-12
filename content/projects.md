@@ -2,6 +2,7 @@
 url: "/projects/"
 hidemeta: true
 hideAboutAuthor: true
+comments: false
 ---
 
 # Personal Projects
