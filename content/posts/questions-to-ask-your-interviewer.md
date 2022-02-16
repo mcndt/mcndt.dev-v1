@@ -2,6 +2,7 @@
 title: "Flip the script: questions to ask during a software engineering interview 🙋"
 subtitle: 'test'
 date: '2022-02-12'
+lastmod: '2022-02-16'
 draft: false
 
 summary: "The main goal of these questions is to avoid nasty surprises about the job after I start my employment. This list is quite extensive, so you can pick and choose the questions that seem most important to you or that segue the best during the conversation with the interviewer."
@@ -35,6 +36,7 @@ The main goal of these questions is to avoid nasty surprises about the job after
 4. Is this a newly created position or am I filling in for someone who left?
 5. How many rounds of interviews will there be?
 6. How many other candidates are there for this role?
+7. (For startups and small companies) Who are your main competitors? What is your unique selling point?
 
 ## Team and planning
 
@@ -110,11 +112,12 @@ Before you sign a contract, it is a great idea to ask if you can talk to one of 
 
 If you have any interesting questions you like to ask at an interview, feel free to leave a comment below, or hit me up on Discord at Maximio#6460.
 
+---
+
 ##### Sources
 
 - [interview_questions | pmulard on GitHub](https://github.com/pmulard/interview_questions)
 - [Interview questions to ask your interviewer | Dave Ceddia’s blog](https://daveceddia.com/interview-questions-to-ask-company/)
 	- [Hacker News comments](https://news.ycombinator.com/item?id=30278290)
 	- [specific HN comment from thread](https://news.ycombinator.com/item?id=30279598)
-
 
