@@ -63,7 +63,7 @@ The main goal of these questions is to avoid nasty surprises about the job after
 2. Bug/issue tracking system?
 3. Use my own machine or locked-down company laptop?
 4. Am I free to use my preferred development environments (e.g. operating system, IDE, …) or are there team-mandated setups?
-5. How does an issue go from pull request to production? What checks are in place to catch bugs an security holes?
+5. How does an issue go from pull request to production? What checks are in place to catch bugs and security holes?
 6. What is your testing strategy?
 7. Is there a code review process in place?
 8. Do I need to track my time?
