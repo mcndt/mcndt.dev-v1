@@ -16,14 +16,22 @@ Other Obsidian users have felt this pain too. For example, Tim Rogers created th
 
 That's why I decided to build [Noteshare.space](https://noteshare.space), my own, end-to-end secured implementation of a "share a note to the web" service. The implementation was inspired by [Thomas Konrad's talk](https://youtu.be/mffWMMVMMLs) about how the (now retired) Firefox Send file sharing service worked.
 
+In this article:
+
+1. [Functional requirements](#functional-requirements)
+2. [Architecture](#architecture)
+3. [Security mechanisms](#security-mechanisms)
+4. [Sharing encryption keys](#sharing-encryption-keys)
+5. [Conclusion](#conclusion)
+
 ## Functional requirements
 
 Now that the stage has been set, let's review the formal requirements for this project:
 
-- **One-click sharing** from the Obsidian UI (as easy as sharing a google doc via URL)
-- **End-to-end encryption** (so you can safely share e.g. work documentation, or a love letter)
-- **Temporary storage** (Noteshare is not intended as a syncing, backup, or permanent hosting solution)
-- Shared notes can be opened by non-Obsidian users (i.e. we will build a **web viewer**)
+* **One-click sharing** from the Obsidian UI (as easy as sharing a google doc via URL)
+* **End-to-end encryption** (so you can safely share e.g. work documentation, or a love letter)
+* **Temporary storage** (Noteshare is not intended as a syncing, backup, or permanent hosting solution)
+* Shared notes can be opened by non-Obsidian users (i.e. we will build a **web viewer**)
 
 As we will see, it is actually quite straight-forward to meet all of these. Now, let's take a look at the architecture I came up with.
 
@@ -53,7 +61,7 @@ Let's take a look at the encryption first. The following snippet shows the encry
 ```ts
 function encrypt(plaintext, key) {
   // Encrypt the message in CBC mode
-  const ciphertext = AES(plaintext, key, {mode: "CBC"});
+  const ciphertext = AES_encrypt(plaintext, key, {mode: "CBC"});
   // Compute keyed message digest
   const hmac = HMAC_SHA_256(ciphertext, key)
   
@@ -72,7 +80,7 @@ The user can now safely send the ciphertext and HMAC values to the storage serve
 
 ### Generating single-use keys
 
-There remains just one small problem: what should we use as the symmetric key? It is absolutely [not safe](https://en.wikipedia.org/wiki/Random_number_generator_attack#:~:text=Modern%20cryptographic%20protocols%20often%20require,as%20random%20number%20generator%20attacks.) to use `Math.random()` for this. Most standard random number generators are only [pseudorandom](https://en.wikipedia.org/wiki/Pseudorandom_number_generator) and can [easily be exploited](https://www.synopsys.com/blogs/software-security/pseudorandom-number-generation/) to derive the secret key used by the client.
+There remains just one small problem: what should we use as the symmetric key? It is absolutely [not safe](https://en.wikipedia.org/wiki/Random_number_generator_attack) to use `Math.random()` for this. Most standard random number generators are only [pseudorandom](https://en.wikipedia.org/wiki/Pseudorandom_number_generator) and can [easily be exploited](https://www.synopsys.com/blogs/software-security/pseudorandom-number-generation/) to derive the secret key used by the client.
 
 To generate a secure key, we need a cryptographically secure random number generator. In my implementation, I used the common **[PBKDF2 algorithm](https://cryptobook.nakov.com/mac-and-key-derivation/pbkdf2)** using the Markdown content as the seed. This is secure as long as the attacker does not know the Markdown content, in which case there is no point to cracking the key in the first place. To ensure the key is unique even when the same note is shared twice, I concatenate the current timestamp to the seed.
 
@@ -95,26 +103,46 @@ As a solution, we can generate a public-private keypair (e.g. a 2048-bit RSA key
 
 While neat, this solves a problem that is beyond the goal for Noteshare, which is to securely exchange text. Therefore I used the symmetric encryption approach.
 
-## Sharing encryption keys 
+## Sharing encryption keys   
 
-- How do we then share the key if the server is not allowed to be able to decrypt your note?
-- For this we use a clever feature of web browsers you have most likely used before:
-- e.g. see the following URL: `https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax`
-- Part of the URI syntax is the `["#" fragment]` suffix.
-- It is most commonly used by web browsers to automatically scroll to a specific header on a webpage, in this case the “Syntax” subsection of the Wikipedia article.
-- What is unique about the fragment component of the URI is that web browsers never include it in their HTTP requests.
-- In other words, we can add data to URLs that are accessible to the browser, but not the server.
-	- –> Perfect for our encryption key!
-- In this way, we can easily share the note with the decryption key: `https://noteshare.space/note/[NOTE_ID]#[DECRYPTION_KEY]`
-- The returned web page includes the encrypted note in base64. The included JavaScript then pulls the decryption key from the URL fragment and retrieves the plaintext note.
+How can we share the decryption key with the recipient when the storage service is not allowed to see it? For this, we can make clever use of the `#` symbol in URIs:
 
-## Noteshare.space
+{{<figure width=720 align=center src="/posts/media/noteshare-uri.png" title="Securely encoding decryption keys in URIs" caption="" attrlink="" attr="Copyright © 2022 mcndt">}}
 
-- It is on this foundation that I built Noteshare.space. I initially built it for my own personal use, but have since opened use to the entire Obsidian community.
+The `["#" fragment]` syntax is most commonly used in web URLs to indicate to the browser to scroll to a specific section of the page (for example: [ `https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax` ](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax)).
+What is unique about the fragment component of URIs is that web browsers never include it in their HTTP requests to the server.
+In other words, we can use it to add data to URLs that are accessible to the browser, but not the server. Perfect for our decryption key! The sketch below illustrates the steps the browser takes to render the decrypted note:
+
+<!-- * In this way, we can easily share the note with the decryption key: `https://noteshare.space/note/[NOTE_ID]#[DECRYPTION_KEY]` -->
+<!-- * The returned web page includes the encrypted note in base64. The included JavaScript then pulls the decryption key from the URL fragment and retrieves the plaintext note. -->
+
+{{<figure width=720 align=center src="/posts/media/noteshare-decryption.png" title="Retrieving ciphertext and decrypting in-browser" caption="" attrlink="" attr="Copyright © 2022 mcndt">}}
+
+We can access the URL fragment using the JavaScript [Location API](https://developer.mozilla.org/en-US/docs/Web/API/Location):
+
+```ts
+/* In the browser: */
+
+// Retrieve ciphertext, hmac and key
+const {ciphertext, hmac_received} = getCiphertextFromPage()
+const key = location.hash.slice(1);  // must slice out the '#' character
+
+// Check if ciphertext is correct
+const hmac_computed = HMAC_SHA_256(ciphertext, key)
+if (hmac_computed != hmac_received) 
+  throw new Error('HMAC check failed!')
+
+// Decrypt
+const plaintext = AES_decrypt(ciphertext, key, {mode: "CBC"});
+renderMarkdown(plaintext)
+```
+
+And that's all there is to it!
 
 ## Conclusion
 
-- In this article, I established the groundwork of how I built an end-to-end encrypted data storage service.
-- However, note that this is far from everything you need to build an encrypted data hosting service!
-	- You need to protect your service from abuse, both in terms of volume of data (rate/volume limiting) and volume of requests (DOS protection).
-	- Furthermore, you might want to implement some mechanism to block known bad actors from your system.
+In this article, I established the groundwork for building an end-to-end encrypted data storage service.
+It is on this foundation that I built my own encrypted note sharing service. I initially built it for my own personal use, but have since opened access to the entire Obsidian community. You can find more information about the service and installation instruction for the Obsidian plugin on [Noteshare.space](noteshare.space).
+
+Note that this is far from everything you need to host a web service! You must protect your service form abuse, both in terms of volume of data (rate/volume limiting) and volume of requests (DOS protection).
+Furthermore, you might want to implement a mechanism to block known back actors from your system.
