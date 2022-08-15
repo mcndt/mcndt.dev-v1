@@ -1,18 +1,18 @@
 ---
 title: "Designing an end-to-end encrypted note sharing service 🔐📝"
-date: '2022-08-14'
-draft: true
+date: '2022-08-15'
+draft: false
 
-summary: "TODO"
+summary: "How can you share data securely via the web browser, using a third-party server? In this article, I explain how I created a end-to-end encrypted note sharing service called Noteshare.space, how the security mechanism works, and how to securely encode decryption keys in URIs."
 
 tags: ["Noteshare.space", "Information Security"]
 ---
 
 I have used [Obsidian](https://obsidian.md/) for my personal knowledge management (PKM) for over a year now. I love it thanks to its simplicity (everything is stored on disk as plain Markdown files) and the way it promotes connecting my knowledge through links.
 
-However, that last part is also a big pain point for me. There is no trivial way for me to share my knowledge apart from sending the plain Markdown file; my knowledge base turns into its own walled garden. For example, I take most of my study notes in Obsidian, which works great for me, but is annoying for my classmates when I have to send them plain `.md` files of my notes. 
+However, that last part is also a big pain point for me. There is no trivial way for me to share my knowledge, apart from sending the plain Markdown file; my knowledge base turns into its own walled garden. For example, I take most of my study notes in Obsidian, which works great for me, but is annoying for my classmates when I have to send them plain `.md` files of my notes. 
 
-Other Obsidian users have felt this pain too. For example, Tim Rogers created the [Share as Gist](https://github.com/timrogers/obsidian-share-as-gist) plugin, and a plugin to [share to Notion](https://github.com/Easychris/obsidian-to-notion) has been created as well. In my opinion, none of these solutions is very user-friendly because they require accounts with third-party services, fiddling with API tokens, and offer no end-to-end encryption. 
+Other Obsidian users have felt this pain, too. For example, Tim Rogers created the [Share as Gist](https://github.com/timrogers/obsidian-share-as-gist) plugin, and a plugin for [sharing to Notion](https://github.com/Easychris/obsidian-to-notion) has been created as well. In my opinion, none of these solutions is very user-friendly because they require accounts with third-party services, fiddling with API tokens, and offer no end-to-end encryption.
 
 That's why I decided to build [Noteshare.space](https://noteshare.space), my own, end-to-end secured implementation of a "share a note to the web" service. The security mechanism was inspired by [Thomas Konrad's talk](https://youtu.be/mffWMMVMMLs) about how the (now retired) Firefox Send file sharing service worked.
 
@@ -52,7 +52,7 @@ Pretty straightforward, right? Next, we look at how we can implement a secure en
 
 ## Security mechanisms
 
-Information security is notoriously hard to get right. That is why you should always stick to well-researched encryption algorithms and security schemes. For this project, I used standard **AES [symmetric encryption](https://en.wikipedia.org/wiki/Symmetric-key_algorithm)** with a **[keyed message authentication code (MAC)](https://en.wikipedia.org/wiki/HMAC)** to validate the authenticity of the ciphertext.
+Information security is notoriously difficult to get right. That is why you should always stick to well-researched encryption algorithms and security schemes. For this project, I used the **AES standard for [symmetric encryption](https://en.wikipedia.org/wiki/Symmetric-key_algorithm)** with a **[keyed message authentication code (MAC)](https://en.wikipedia.org/wiki/HMAC)** to validate the authenticity of the ciphertext.
 
 ### AES-CBC encryption
 
