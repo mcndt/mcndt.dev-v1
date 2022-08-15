@@ -39,6 +39,10 @@ h6 {
     color: var(--italic);
 }
 
+.post-content code {
+    font-size: 1em;
+}
+
 .book-info {
     /* background-color: var(--paginav); */
     /* border-radius: var(--radius); */
@@ -64,7 +68,7 @@ h6 {
     color: var(--tertiary);
 } */
 
-/* CUSTOMIZATION */ 
+/* CUSTOMIZATION */
 
 .home-info-main {
     display: flex;
@@ -138,7 +142,7 @@ h6 {
     color: var(--secondary) !important;
 }
 
-.archive-entry-title { 
+.archive-entry-title {
     max-width: 80%;
     margin: 0px 0;
 }
@@ -158,6 +162,6 @@ h6 {
     margin: 0px 0;
 }
 
-.home-info .entry-header > h1 {
+.home-info .entry-header>h1 {
     font-size: 3rem;
 }
