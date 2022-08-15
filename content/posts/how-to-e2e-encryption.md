@@ -14,7 +14,7 @@ However, that last part is also a big pain point for me. There is no trivial way
 
 Other Obsidian users have felt this pain too. For example, Tim Rogers created the [Share as Gist](https://github.com/timrogers/obsidian-share-as-gist) plugin, and a plugin to [share to Notion](https://github.com/Easychris/obsidian-to-notion) has been created as well. However, none of these solutions are very user-friendly, because they require accounts with third-party services, fiddling with API tokens, and offer no end-to-end encryption. 
 
-That's why I decided to build [Noteshare.space](https://noteshare.space), my own, end-to-end secured implementation of a "share a note to the web" service.
+That's why I decided to build [Noteshare.space](https://noteshare.space), my own, end-to-end secured implementation of a "share a note to the web" service. The implementation was inspired by [Thomas Konrad's talk](https://youtu.be/mffWMMVMMLs) about how the (now retired) Firefox Send file sharing service worked.
 
 ## Functional requirements
 
@@ -44,7 +44,7 @@ Pretty straight-forward, right? Next, let's take a look at how we can implement 
 
 ## Security mechanisms
 
-Information security is notoriously hard to get right, which is why you should always stick to well-researched encryption algorithms and security schemes. For this project, I used standard AES [symmetric encryption](https://en.wikipedia.org/wiki/Symmetric-key_algorithm) with a [keyed message authentication code (MAC)](https://en.wikipedia.org/wiki/HMAC) to validate the authenticity of the ciphertext.
+Information security is notoriously hard to get right, which is why you should always stick to well-researched encryption algorithms and security schemes. For this project, I used standard **AES [symmetric encryption](https://en.wikipedia.org/wiki/Symmetric-key_algorithm)** with a **[keyed message authentication code (MAC)](https://en.wikipedia.org/wiki/HMAC)** to validate the authenticity of the ciphertext.
 
 ### AES-CBC encryption
 
@@ -61,7 +61,7 @@ function encrypt(plaintext, key) {
 }
 ```
 
-In a first step, we encrypt the plaintext Markdown with the AES algorithm and a 256-bit key. We run the algorithm in conjunction with [cipher block chaining (CBC)](https://www.techtarget.com/searchsecurity/definition/cipher-block-chaining) to encrypt files of arbitrary length. A downside of CBC  is that the encryption cannot be parallelized. Other encryption schemes, such as [Galois/Counter mode (GCM)](https://csrc.nist.rip/groups/ST/toolkit/BCM/documents/proposedmodes/gcm/gcm-spec.pdf) are much faster. However, they usually come with subtle pitfalls; when used incorrectly, it becomes trivial for attackers to decrypt the ciphertext. Regardlees, because our Markdown file is in the order of kilobytes, using CBC is not an issue.
+In a first step, we encrypt the plaintext Markdown with the AES algorithm and a 256-bit key. We run the algorithm in conjunction with **[cipher block chaining (CBC)](https://www.techtarget.com/searchsecurity/definition/cipher-block-chaining)** to encrypt files of arbitrary length. A downside of CBC  is that the encryption cannot be parallelized. Other encryption schemes, such as [Galois/Counter mode (GCM)](https://csrc.nist.rip/groups/ST/toolkit/BCM/documents/proposedmodes/gcm/gcm-spec.pdf) are much faster. However, they usually come with subtle pitfalls; when used incorrectly, it becomes trivial for attackers to decrypt the ciphertext. Regardlees, because our Markdown file is in the order of kilobytes, using CBC is not an issue.
 
 ### Keyed message digest
 
@@ -74,7 +74,7 @@ The user can now safely send the ciphertext and HMAC values to the storage serve
 
 There remains just one small problem: what should we use as the symmetric key? It is absolutely [not safe](https://en.wikipedia.org/wiki/Random_number_generator_attack#:~:text=Modern%20cryptographic%20protocols%20often%20require,as%20random%20number%20generator%20attacks.) to use `Math.random()` for this. Most standard random number generators are only [pseudorandom](https://en.wikipedia.org/wiki/Pseudorandom_number_generator) and can [easily be exploited](https://www.synopsys.com/blogs/software-security/pseudorandom-number-generation/) to derive the secret key used by the client.
 
-To generate a secure key, we need a cryptographically secure random number generator. In my implementation, I used the common [PBKDF2 algorithm](https://cryptobook.nakov.com/mac-and-key-derivation/pbkdf2) using the Markdown content as the seed. This is secure as long as the attacker does not know the Markdown content, in which case there is no point to cracking the key in the first place. To ensure the key is unique even when the same note is shared twice, I concatenate the current timestamp to the seed.
+To generate a secure key, we need a cryptographically secure random number generator. In my implementation, I used the common **[PBKDF2 algorithm](https://cryptobook.nakov.com/mac-and-key-derivation/pbkdf2)** using the Markdown content as the seed. This is secure as long as the attacker does not know the Markdown content, in which case there is no point to cracking the key in the first place. To ensure the key is unique even when the same note is shared twice, I concatenate the current timestamp to the seed.
 
 ```ts
 function generateKey(seed) {
@@ -86,12 +86,6 @@ function generateKey(seed) {
 const key_256 = generateKey(time.now() + plaintext)
 const ciphertext, hmac = encrypt(plaintext, key_256)
 ```
-
-- Heavily inspired by this [talk](https://youtu.be/mffWMMVMMLs) which explains how the now deprecated Firefox Send file sharing service worked.
-<!-- - Library implementation of symmetric AES-256 encryption in cipher block chain (CBC) mode. -->
-<!-- - CBC is generally slower than e.g. GCM mode, but I will never have to worry about changing keys midway, and notes are generally less than 500 KB anyways. -->
-- A one-use key is generated every time a note is shared, using a cryptographic hash [insert hashing algorithm] of the note + a timestamp.
-- The encrypted note is then stored on the server; i.e. the server never sees your unencrypted content. Finally, the server returns to you the URL of where your note can be viewed. Neat!
 
 ### Alternative solution with public/private keys
 
