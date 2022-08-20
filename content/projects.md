@@ -56,7 +56,7 @@ Features include:
 
 [GitHub](https://github.com/mcndt/obsidian-toggl-integration) 
 
-As an avid user of both the Obsidian notes app and the Toggl time tracking service, I develop and maintain an open-source plugin integration Toggl into Obsidian, downloaded by over 2,700 users to date.
+As an avid user of both the Obsidian notes app and the Toggl time tracking service, I develop and maintain an open-source plugin integration Toggl into Obsidian, downloaded by over 6,500 users to date.
 
 The plugin is self-documented using TypeScript and makes use of the official [Obsidian API](https://github.com/obsidianmd/obsidian-api) and The [Toggl and Toggl Reports API](https://github.com/toggl/toggl_api_docs). Custom views are written in the Svelte 3 framework.
 
