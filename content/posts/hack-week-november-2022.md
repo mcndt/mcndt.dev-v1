@@ -22,7 +22,7 @@ The goal of my first "HACK WEEK" is to create some structured time to work on [O
 I think it would feel too much like a chore with a deadline if I would schedule each goal on a specific date. So instead I will organize the work into milestones that I can progress through at my own pace:
 
 **Milestone 1:**
-- [ ] 🔐 Upgraded encryption (encryption v3)
+- [x] [2022-11-13] 🔐 Upgraded encryption (encryption v3)
 - [ ] 🍀 Filename as note title
 - [ ] 🍀 Store share link in frontmatter
 
